@@ -204,7 +204,9 @@ endif
 ifeq ($(do_not_alter_apk),true)
 $(built_module) : $(my_prebuilt_src_file) | $(ZIPALIGN)
 	$(transform-prebuilt-to-target)
-	$(check-jni-dex-compression)
+ifneq ($(LOCAL_RELAX_JNI_DEX_COMPRESSION_CHECKS), true)
+        $(check-jni-dex-compression)
+endif
 	$(check-package-alignment)
 else
 # Sign and align non-presigned .apks.
