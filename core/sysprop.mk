@@ -23,6 +23,10 @@ ifeq ($(BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED), true)
   property_overrides_split_enabled := true
 endif
 
+ifndef FLORAOS_BUILD_NUMBER 
+  $(error FloraOS build number is not defined)
+endif
+
 POST_PROCESS_PROPS := $(HOST_OUT_EXECUTABLES)/post_process_props$(HOST_EXECUTABLE_SUFFIX)
 
 # Emits a set of sysprops common to all partitions to a file.
@@ -68,6 +72,7 @@ define generate-common-build-props
             echo "ro.$(1).product.cpu.abilist64=$(TARGET_CPU_ABI_LIST_64_BIT)" >> $(2);\
         )\
     )\
+    echo "ro.$(1).build.f104a.number=$(FLORAOS_BUILD_NUMBER)" >> $(2);\
     echo "ro.$(1).build.date=`$(DATE_FROM_FILE)`" >> $(2);\
     echo "ro.$(1).build.date.utc=`$(DATE_FROM_FILE) +%s`" >> $(2);\
     echo "ro.$(1).build.fingerprint?=$${BuildFingerprint:-$(BUILD_FINGERPRINT_FROM_FILE)}" >> $(2);\
