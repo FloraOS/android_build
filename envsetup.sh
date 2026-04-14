@@ -1221,6 +1221,8 @@ if [[ "$USE_LEFTOVERS" -eq 1 ]]; then
   leftovers
 fi
 
+export PS1="🌻$PS1"
 export ANDROID_BUILD_TOP=$(gettop)
+export PATH="$PATH:$ANDROID_BUILD_TOP/aqua"
 
 . $ANDROID_BUILD_TOP/vendor/lineage/build/envsetup.sh
